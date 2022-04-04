@@ -32,12 +32,23 @@ const displayUserInfo =  function (data) {
       <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
     </div>`;
     overview.append(div);
-    repos();
-};
+    gitRepos();
+  };
 
 //Fetching repos
-const repos = async function () {
-    const getRepos = await fetch (`https://api.github.com/users/${username}/repos?sort=update&per_page=100`);
-    const repoData = await getRepos.json();
+const gitRepos = async function () {
+    const fetchRepos = await fetch (`https://api.github.com/users/${username}/repos?sort=update&per_page=100`);
+    const repoData = await fetchRepos.json();
     console.log(repoData);
+    repoInfo(repoData);
+};
+
+//Info on repos
+const repoInfo = function (repos) {
+  for (const repo of repos) {
+    const repoItem = document.createElement("li");
+      repoItem.classList.add("repo");
+      repoItem.innerHTML = `<h3>${repo.name}</h3>`;
+      repoList.append(repoItem);    
+  }
 };
