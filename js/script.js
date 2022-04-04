@@ -2,9 +2,12 @@
 const overview = document.querySelector(".overview");
 //Git user name
 const username = "Samantha-N";
-////unordered list for repos
+//unordered list for repos
 const repoList = document.querySelector(".repo-list");
+//repo container
+const repoContainer = document.querySelector(".repos");
 
+const repoData = document.querySelector(".repo-data");
 
 //Fetching user info GitHub profile
 const gitUserInfo = async function () {
@@ -15,6 +18,7 @@ const gitUserInfo = async function () {
     
     displayUserInfo(data);
 };
+
 gitUserInfo();
 
 //Displaying user info
@@ -38,9 +42,9 @@ const displayUserInfo =  function (data) {
 //Fetching repos
 const gitRepos = async function () {
     const fetchRepos = await fetch (`https://api.github.com/users/${username}/repos?sort=update&per_page=100`);
-    const repoData = await fetchRepos.json();
-    console.log(repoData);
-    repoInfo(repoData);
+    const data = await fetchRepos.json();
+    console.log(data);
+    repoInfo(data);
 };
 
 //Info on repos
