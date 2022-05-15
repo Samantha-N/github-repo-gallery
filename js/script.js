@@ -44,11 +44,11 @@ const gitRepos = async function () {
     const fetchRepos = await fetch (`https://api.github.com/users/${username}/repos?sort=update&per_page=100`);
     const data = await fetchRepos.json();
     console.log(data);
-    repoInfo(data);
+    displayRepos(data);
 };
 
-//Info on repos
-const repoInfo = function (repos) {
+//Fetching INFO on repos
+const displayRepos = function (repos) {
   for (const repo of repos) {
     const repoItem = document.createElement("li");
       repoItem.classList.add("repo");
@@ -56,3 +56,18 @@ const repoInfo = function (repos) {
       repoList.append(repoItem);    
   }
 };
+
+repoList.addEventListener("click", function (e){
+  if (e.target.matches("h3")){
+    const repoName = e.target.innerText;
+    getRepoInfo(repoName);
+  }
+  
+}); 
+
+//Function to get SPECIFIC repo info
+const getRepoInfo = async function (repoName){
+  const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+  const repoInfo = await fetchInfo.json();
+  console.log(repoInfo);
+}
