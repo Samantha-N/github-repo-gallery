@@ -57,22 +57,28 @@ const displayRepos = function (repos) {
   }
 };
 
-repoList.addEventListener("click", function (e){
-  if (e.target.matches("h3")){
+repoList.addEventListener("click", function (e) {
+  if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
     getRepoInfo(repoName);
-  }
-  
+  }  
 }); 
 
 //Function to get SPECIFIC repo info
-const getRepoInfo = async function (username){
+const getRepoInfo = async function (repoName) {
   const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await fetchInfo.json();
   console.log(repoInfo);
   //Fetching languages
-  const fetchLanguages = await fetch (`repoInfo.languages_url`);
+  const fetchLanguages = await fetch(repoInfo.languages_url);
   const languageData = await fetchLanguages.json();
   
   console.log(languageData);
+
+  const languages = [];
+    for (const language in languageData)
+    {
+      languages.push(language);
+  }
 }
+
