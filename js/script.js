@@ -66,7 +66,7 @@ repoList.addEventListener("click", function (e){
 }); 
 
 //Function to get SPECIFIC repo info
-const getRepoInfo = async function (repoName){
+const getRepoInfo = async function (username){
   const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await fetchInfo.json();
   console.log(repoInfo);
