@@ -8,6 +8,10 @@ const repoList = document.querySelector(".repo-list");
 const repoContainer = document.querySelector(".repos");
 
 const repoData = document.querySelector(".repo-data");
+//Repo Gallery Button
+const galleryButton = document.querySelector(".view-repos");
+
+const filterInput = document.querySelector(".filter-repos");
 
 //Fetching user info GitHub profile
 const gitUserInfo = async function () {
@@ -53,7 +57,8 @@ const displayRepos = function (repos) {
     const repoItem = document.createElement("li");
       repoItem.classList.add("repo");
       repoItem.innerHTML = `<h3>${repo.name}</h3>`;
-      repoList.append(repoItem);    
+      repoList.append(repoItem); 
+      galleryButton.classList.remove("hide");   
   }
 };
 
@@ -87,13 +92,13 @@ const getRepoInfo = async function (repoName) {
 
 //Create a Function to Display Specific Repo Info
 const displaySpecificRepoInfo = function (repoInfo, languages) {
+  galleryButton.classList.remove("hide");
   repoData.innerHTML = "";
   repoData.classList.remove("hide");
   //Making the repo container visable 
   repoContainer.classList.add("hide");
-  
+   
   const div = document.createElement("div");
-
   div.innerHTML = `
   <h3>Name: ${repoInfo.name}</h3>
     <p>Description: ${repoInfo.description}</p>
@@ -103,3 +108,12 @@ const displaySpecificRepoInfo = function (repoInfo, languages) {
 
   repoData.append(div);
 };
+
+
+//Repo Gallery button
+galleryButton.addEventListener("click", function(){
+  repoContainer.classList.remove("hide");
+  repoData.classList.add("hide");
+  galleryButton.classList.add("hide");
+});
+
