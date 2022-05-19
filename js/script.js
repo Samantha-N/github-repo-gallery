@@ -44,14 +44,17 @@ const displayUserInfo =  function (data) {
   };
 
 //Fetching repos
+filterInput.classList.remove("hide");
 const gitRepos = async function () {
     const fetchRepos = await fetch (`https://api.github.com/users/${username}/repos?sort=update&per_page=100`);
     const data = await fetchRepos.json();
     console.log(data);
     displayRepos(data);
+    
 };
 
 //Fetching INFO on repos
+
 const displayRepos = function (repos) {
   for (const repo of repos) {
     const repoItem = document.createElement("li");
@@ -117,3 +120,19 @@ galleryButton.addEventListener("click", function(){
   galleryButton.classList.add("hide");
 });
 
+//Input event search bar
+filterInput.addEventListener("input", function (e){
+  const searchBar = e.target.value;
+  const repos = document.querySelectorAll(".repo");
+  const lowerCaseSearchBar = searchBar.toLowerCase(); 
+
+
+  for (const repo of repos) {
+    const repoLowerCase = repo.innerText.toLowerCase();
+    if (repoLowerCase.includes(lowerCaseSearchBar)) {
+      repo.classList.remove("hide"); 
+     } else {
+        repo.classList.add("hide");
+      }
+      }
+});
